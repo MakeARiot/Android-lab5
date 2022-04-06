@@ -81,6 +81,7 @@ class MainActivity : AppCompatActivity() {
                             error: Throwable?
                         ) {
                             Log.d("MyLog", "почему-то не подключился")
+                            Log.d("MyLog", "")
                             Log.d("MyLog", error.toString())
                         }
                     }]
