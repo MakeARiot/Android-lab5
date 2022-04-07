@@ -57,8 +57,6 @@ class MainActivity : AppCompatActivity() {
                             headers: Array<out Header>?,
                             responseBody: ByteArray?
                         ) {
-                            //вывожу статус подключения в консоль
-                            Log.d("MyLog", "statusCode: $statusCode")
                             try {
                                 //создал папку
                                 File("/storage/self/primary/Download/lab5/").mkdir()
@@ -80,9 +78,7 @@ class MainActivity : AppCompatActivity() {
                             responseBody: ByteArray?,
                             error: Throwable?
                         ) {
-                            Log.d("MyLog", "почему-то не подключился")
-                            Log.d("MyLog", "")
-                            Log.d("MyLog", error.toString())
+                            Log.d("MyLog", "$id не найден")
                         }
                     }]
                 }
