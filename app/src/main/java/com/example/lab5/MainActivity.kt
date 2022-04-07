@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext,
                     "Подожди минутку...", Toast.LENGTH_SHORT)
                     .show()
-                for (id in 1..10){
+                for (id in 1..20){
                     client["http://ntv.ifmo.ru/file/journal/${id}.pdf", RequestParams(), object: AsyncHttpResponseHandler(){
                         override fun onSuccess(
                             statusCode: Int,

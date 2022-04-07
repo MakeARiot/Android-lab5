@@ -4,15 +4,13 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java.io.File
 import android.content.Intent
 import android.os.Build
+import android.view.*
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.FileProvider
@@ -28,7 +26,7 @@ class MainActivity2 : AppCompatActivity() {
         val listFiles = file.listFiles()
         for (f: File in listFiles!!){
             if (f.name.endsWith("pdf")){ // pdf
-                list.add(PdfFile(f.name, f.absolutePath))
+                list.add(PdfFile(f.name, f.absolutePath, (f.length()/1024/1024).toString()))
                 Log.d("MyLog", f.name)
             }
         }
@@ -68,6 +66,7 @@ class CustomRecyclerAdapter(private val names: ArrayList<PdfFile>, var mode: Str
     class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val name: TextView = itemView.findViewById(R.id.txtFileName)
         val path: TextView = itemView.findViewById(R.id.txtFilePath)
+        var size: TextView = itemView.findViewById(R.id.txtFileSize)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -75,11 +74,11 @@ class CustomRecyclerAdapter(private val names: ArrayList<PdfFile>, var mode: Str
         return MyViewHolder(itemView)
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.name.text = names[position].name
         holder.path.text = names[position].path
-
+        holder.size.text = "${names[position].size}Mb"
 
         if (mode == "open"){
             //обработчик нажатий на запись
@@ -109,4 +108,4 @@ class CustomRecyclerAdapter(private val names: ArrayList<PdfFile>, var mode: Str
 }
 
 //класс для хранения .pdf
-data class PdfFile(val name: String, val path: String)
+data class PdfFile(val name: String, val path: String, val size: String)
